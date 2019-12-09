@@ -9,5 +9,13 @@ interface ICard {
 export const Card: React.FC<ICard> = props => {
   const { color, number, onClick } = props
 
-  return <div className={`color-${color}`}>{number}</div>
+  return (
+    <button
+      className={`card color-${color}`}
+      onClick={onClick}
+      data-number={number}
+    >
+      {number}
+    </button>
+  )
 }

@@ -4,12 +4,19 @@ import { ColorPicker, Colors } from './components/ColorPicker'
 import { Card } from './components/Card'
 
 const App: React.FC = () => {
-  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedColor, setSelectedColor] = useState(Colors.Green as string)
+  const [currentCard, setCurrentCard] = useState()
 
   const handleColorPickerClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setSelectedColor(event.currentTarget.dataset.color || Colors.Green)
+  }
+
+  const handleCardClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setCurrentCard(event.currentTarget.dataset.number)
   }
 
   return (
@@ -42,13 +49,20 @@ const App: React.FC = () => {
       </div>
 
       <div className="cards">
-        <Card color={selectedColor} number={'0'} />
-        <Card color={selectedColor} number={'0/2'} />
-        <Card color={selectedColor} number={'1'} />
-        <Card color={selectedColor} number={'2'} />
-        <Card color={selectedColor} number={'3'} />
-        <Card color={selectedColor} number={'5'} />
-        <Card color={selectedColor} number={'8'} />
+        <Card color={selectedColor} number={'0'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'0.5'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'1'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'2'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'3'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'5'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'8'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'13'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'20'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'40'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'100'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'?'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'∞'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'☕'} onClick={handleCardClick} />
       </div>
     </div>
   )

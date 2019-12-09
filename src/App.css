@@ -4,7 +4,15 @@
   width: 100%;
   background: #4281a4;
   color: #ffffff;
-  padding: 5% 0;
+}
+
+.qr-code {
+  padding-top: 30px;
+  height: 100px;
+}
+
+.qr-code img {
+  height: 100%;
 }
 
 .colors {
@@ -17,7 +25,7 @@
   width: 70px;
   height: 70px;
   border: 5px solid #ffffff;
-  margin: 15px;
+  margin: 0 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,4 +57,29 @@
 
 .color-orange {
   background: #ee6c4d;
+}
+
+.cards {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  width: 100px;
+  height: 150px;
+  border: 5px solid #ffffff;
+  margin: 10px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 2.7em;
+  display: flex;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
 }
