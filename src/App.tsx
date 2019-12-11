@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import { ColorPicker, Colors } from './components/ColorPicker'
 import { Card } from './components/Card'
+import { BigCard } from './components/BigCard'
 
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(Colors.Green as string)
@@ -19,8 +20,23 @@ const App: React.FC = () => {
     setCurrentCard(event.currentTarget.dataset.number)
   }
 
+  const handleBigCardClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setCurrentCard(null)
+  }
+
   return (
     <div className="App">
+      <BigCard isShown={!!currentCard}>
+        <Card
+          color={selectedColor}
+          number={currentCard}
+          onClick={handleBigCardClick}
+          isBig={true}
+        />
+      </BigCard>
+
       <div className="qr-code">
         <img src="img/qr.svg" alt="" />
       </div>

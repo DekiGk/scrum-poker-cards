@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background: #4281a4;
   color: #ffffff;
@@ -82,4 +82,31 @@
   color: #ffffff;
   cursor: pointer;
   outline: none;
+}
+
+.card-big {
+  width: 300px;
+  height: 450px;
+  font-size: 10em;
+}
+
+.full-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #4281a4;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  display: flex;
+  transition: all 0.4s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.show-overlay {
+  opacity: 1;
+  visibility: visible;
 }
