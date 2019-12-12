@@ -66,7 +66,7 @@ const App: React.FC = () => {
 
       <div className="cards">
         <Card color={selectedColor} number={'0'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'0.5'} onClick={handleCardClick} />
+        <Card color={selectedColor} number={'0,5'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'1'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'2'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'3'} onClick={handleCardClick} />
