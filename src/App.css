@@ -8,11 +8,25 @@
 
 .qr-code {
   padding-top: 30px;
-  height: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
 }
 
-.qr-code img {
-  height: 100%;
+.qr-code-btn {
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.qr-code-img-small {
+  height: 50px;
+}
+
+.qr-code-img-big {
+  width: 300px;
 }
 
 .colors {
@@ -88,6 +102,9 @@
   width: 300px;
   height: 450px;
   font-size: 10em;
+  transition: all 1s;
+  transform: rotate3d(0, 1, 0, 180deg);
+  backface-visibility: hidden;
 }
 
 .full-overlay {
@@ -109,4 +126,8 @@
 .show-overlay {
   opacity: 1;
   visibility: visible;
+}
+
+.show-overlay .card-big {
+  transform: rotate3d(0, 1, 0, 0deg);
 }

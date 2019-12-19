@@ -7,56 +7,46 @@ import { BigCard } from './components/BigCard'
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(Colors.Green as string)
   const [currentCard, setCurrentCard] = useState()
+  const [showQrCode, setShowQrCode] = useState(false)
 
-  const handleColorPickerClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleColorPickerClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelectedColor(event.currentTarget.dataset.color || Colors.Green)
   }
 
-  const handleCardClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleCardClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setCurrentCard(event.currentTarget.dataset.number)
   }
 
-  const handleBigCardClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleBigCardClick = () => {
     setCurrentCard(null)
+  }
+
+  const toggleShowQrCode = () => {
+    setShowQrCode(!showQrCode)
   }
 
   return (
     <div className="App">
       <BigCard isShown={!!currentCard}>
-        <Card
-          color={selectedColor}
-          number={currentCard}
-          onClick={handleBigCardClick}
-          isBig={true}
-        />
+        <Card color={selectedColor} number={currentCard} onClick={handleBigCardClick} isBig={true} />
       </BigCard>
 
       <div className="qr-code">
-        <img src="img/qr.svg" alt="" />
+        <button className="qr-code-btn" onClick={toggleShowQrCode}>
+          <img className="qr-code-img-small" src="img/qr.svg" alt="" />
+        </button>
       </div>
 
+      <BigCard isShown={showQrCode}>
+        <button className="qr-code-btn" onClick={toggleShowQrCode}>
+          <img className="qr-code-img-big" src="img/qr.svg" alt="" />
+        </button>
+      </BigCard>
+
       <div className="colors">
-        <ColorPicker
-          color={Colors.Green}
-          isActive={selectedColor === Colors.Green}
-          onClick={handleColorPickerClick}
-        />
-        <ColorPicker
-          color={Colors.Red}
-          isActive={selectedColor === Colors.Red}
-          onClick={handleColorPickerClick}
-        />
-        <ColorPicker
-          color={Colors.Blue}
-          isActive={selectedColor === Colors.Blue}
-          onClick={handleColorPickerClick}
-        />
+        <ColorPicker color={Colors.Green} isActive={selectedColor === Colors.Green} onClick={handleColorPickerClick} />
+        <ColorPicker color={Colors.Red} isActive={selectedColor === Colors.Red} onClick={handleColorPickerClick} />
+        <ColorPicker color={Colors.Blue} isActive={selectedColor === Colors.Blue} onClick={handleColorPickerClick} />
         <ColorPicker
           color={Colors.Orange}
           isActive={selectedColor === Colors.Orange}

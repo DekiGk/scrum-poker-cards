@@ -21,8 +21,6 @@ export const ColorPicker: React.FC<IColorPicker> = props => {
       className={`color-picker color-${color} ${isActive ? 'active' : ''}`}
       onClick={onClick}
       data-color={color}
-    >
-      #
-    </button>
+    ></button>
   )
 }
