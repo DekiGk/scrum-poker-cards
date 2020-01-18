@@ -1,16 +1,30 @@
 import React, { useState } from 'react'
 import './App.css'
-import { ColorPicker, Colors } from './components/ColorPicker'
+import { ColorPicker, DefaultColors } from './components/ColorPicker'
 import { Card } from './components/Card'
 import { BigCard } from './components/BigCard'
+import styled from 'styled-components'
+import { QrCode } from './components/QrCode'
+import { QrCodeBtn } from './components/QrCodeBtn'
+import { QrCodeImg } from './components/QrCodeImg'
+import { Colors } from './components/Colors'
+import { Cards } from './components/Cards'
+
+const StyledApp = styled.div`
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  background: #4281a4;
+  color: #ffffff;
+`
 
 const App: React.FC = () => {
-  const [selectedColor, setSelectedColor] = useState(Colors.Green as string)
+  const [selectedColor, setSelectedColor] = useState(DefaultColors.Green as string)
   const [currentCard, setCurrentCard] = useState()
   const [showQrCode, setShowQrCode] = useState(false)
 
   const handleColorPickerClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setSelectedColor(event.currentTarget.dataset.color || Colors.Green)
+    setSelectedColor(event.currentTarget.dataset.color || DefaultColors.Green)
   }
 
   const handleCardClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -26,35 +40,53 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
+    <StyledApp>
       <BigCard isShown={!!currentCard}>
-        <Card color={selectedColor} number={currentCard} onClick={handleBigCardClick} isBig={true} />
+        <Card
+          color={selectedColor}
+          number={currentCard}
+          onClick={handleBigCardClick}
+          isBig={true}
+          isShown={!!currentCard}
+        />
       </BigCard>
 
-      <div className="qr-code">
-        <button className="qr-code-btn" onClick={toggleShowQrCode}>
-          <img className="qr-code-img-small" src="img/qr.svg" alt="" />
-        </button>
-      </div>
+      <QrCode>
+        <QrCodeBtn onClick={toggleShowQrCode}>
+          <QrCodeImg small={true} src="img/qr.svg" alt="" />
+        </QrCodeBtn>
+      </QrCode>
 
       <BigCard isShown={showQrCode}>
-        <button className="qr-code-btn" onClick={toggleShowQrCode}>
-          <img className="qr-code-img-big" src="img/qr.svg" alt="" />
-        </button>
+        <QrCodeBtn onClick={toggleShowQrCode}>
+          <QrCodeImg big={true} src="img/qr.svg" alt="" />
+        </QrCodeBtn>
       </BigCard>
 
-      <div className="colors">
-        <ColorPicker color={Colors.Green} isActive={selectedColor === Colors.Green} onClick={handleColorPickerClick} />
-        <ColorPicker color={Colors.Red} isActive={selectedColor === Colors.Red} onClick={handleColorPickerClick} />
-        <ColorPicker color={Colors.Blue} isActive={selectedColor === Colors.Blue} onClick={handleColorPickerClick} />
+      <Colors>
         <ColorPicker
-          color={Colors.Orange}
-          isActive={selectedColor === Colors.Orange}
+          color={DefaultColors.Green}
+          isActive={selectedColor === DefaultColors.Green}
           onClick={handleColorPickerClick}
         />
-      </div>
+        <ColorPicker
+          color={DefaultColors.Red}
+          isActive={selectedColor === DefaultColors.Red}
+          onClick={handleColorPickerClick}
+        />
+        <ColorPicker
+          color={DefaultColors.Blue}
+          isActive={selectedColor === DefaultColors.Blue}
+          onClick={handleColorPickerClick}
+        />
+        <ColorPicker
+          color={DefaultColors.Orange}
+          isActive={selectedColor === DefaultColors.Orange}
+          onClick={handleColorPickerClick}
+        />
+      </Colors>
 
-      <div className="cards">
+      <Cards>
         <Card color={selectedColor} number={'0'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'0,5'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'1'} onClick={handleCardClick} />
@@ -69,8 +101,8 @@ const App: React.FC = () => {
         <Card color={selectedColor} number={'?'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'∞'} onClick={handleCardClick} />
         <Card color={selectedColor} number={'☕'} onClick={handleCardClick} />
-      </div>
-    </div>
+      </Cards>
+    </StyledApp>
   )
 }
 
