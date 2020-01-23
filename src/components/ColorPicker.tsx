@@ -1,29 +1,18 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-export enum DefaultColors {
-  Red = '#ba1200',
-  Green = '#618b4a',
-  Blue = '#345995',
-  Orange = '#ee6c4d',
-}
-
 interface IColorPicker {
   color: string
   isActive: boolean
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-}
-
-interface IStyledButton {
-  isActive: boolean
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  colorPickerChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const StyledButton = styled.button<IColorPicker>`
   width: 70px;
   height: 70px;
   border: 5px solid #ffffff;
-  margin: 0 15px;
+  margin: 0 15px 15px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,10 +34,18 @@ const StyledButton = styled.button<IColorPicker>`
     css`
       border-color: #faf33e;
     `};
+
+  input {
+    display: none;
+  }
 `
 
 export const ColorPicker: React.FC<IColorPicker> = props => {
-  const { color } = props
+  const { color, colorPickerChange } = props
 
-  return <StyledButton {...props} data-color={color}></StyledButton>
+  return (
+    <StyledButton {...props} data-color={color}>
+      <input type="color" onChange={colorPickerChange} />
+    </StyledButton>
+  )
 }
