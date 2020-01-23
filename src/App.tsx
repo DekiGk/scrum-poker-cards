@@ -10,6 +10,7 @@ import { QrCodeImg } from './components/QrCodeImg'
 import { Colors } from './components/Colors'
 import { Cards } from './components/Cards'
 import { ColorPicker } from './components/ColorPicker'
+import qr from './img/qr.svg'
 
 const StyledApp = styled.div`
   text-align: center;
@@ -65,13 +66,13 @@ const App: React.FC = () => {
 
       <QrCode>
         <QrCodeBtn onClick={toggleShowQrCode}>
-          <QrCodeImg small={true} src="img/qr.svg" alt="" />
+          <QrCodeImg small={true} src={qr} alt="" />
         </QrCodeBtn>
       </QrCode>
 
       <BigCard isShown={showQrCode}>
         <QrCodeBtn onClick={toggleShowQrCode}>
-          <QrCodeImg big={true} src="img/qr.svg" alt="" />
+          <QrCodeImg big={true} src={qr} alt="" />
         </QrCodeBtn>
       </BigCard>
 
