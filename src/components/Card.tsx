@@ -64,7 +64,7 @@ export const Card: React.FC<ICard> = props => {
   const { color, number, onClick, isBig, isShown } = props
 
   return (
-    <StyledButton color={color} onClick={onClick} isBig={isBig} isShown={isShown} data-number={number}>
+    <StyledButton color={color} onClick={onClick} isBig={isBig} isShown={isShown}>
       {number}
     </StyledButton>
   )

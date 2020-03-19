@@ -22,7 +22,7 @@ const StyledApp = styled.div`
 
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(DefaultColors.Green as string)
-  const [currentCard, setCurrentCard] = useState()
+  const [currentCard, setCurrentCard] = useState('')
   const [showQrCode, setShowQrCode] = useState(false)
   const [isColorPickerActive, setIsColorPickerActive] = useState(false)
 
@@ -41,11 +41,11 @@ const App: React.FC = () => {
   }
 
   const handleCardClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setCurrentCard(event.currentTarget.dataset.number)
+    setCurrentCard(event.currentTarget.innerText)
   }
 
   const handleBigCardClick = () => {
-    setCurrentCard(null)
+    setCurrentCard('')
   }
 
   const toggleShowQrCode = () => {
