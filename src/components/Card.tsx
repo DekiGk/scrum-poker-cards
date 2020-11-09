@@ -33,13 +33,13 @@ const StyledButton = styled.button<IStyledButton>`
   transition: all 1s;
   backface-visibility: hidden;
 
-  background: ${props =>
+  background: ${(props) =>
     props.color &&
     css`
       ${props.color};
     `};
 
-  ${props =>
+  ${(props) =>
     props.isBig &&
     css`
       width: 300px;
@@ -47,20 +47,20 @@ const StyledButton = styled.button<IStyledButton>`
       font-size: 10em;
     `};
 
-  ${props =>
+  ${(props) =>
     props.isShown === false &&
     css`
       transform: rotate3d(0, 1, 0, 180deg);
     `};
 
-  ${props =>
+  ${(props) =>
     props.isShown &&
     css`
       transform: rotate3d(0, 1, 0, 0deg);
     `};
 `
 
-export const Card: React.FC<ICard> = props => {
+export const Card: React.FC<ICard> = (props) => {
   const { color, number, onClick, isBig, isShown } = props
 
   return (

@@ -20,7 +20,7 @@ const FullOverlay = styled.div<IBigCard>`
   opacity: 0;
   visibility: hidden;
 
-  ${props =>
+  ${(props) =>
     props.isShown &&
     css`
       opacity: 1;
@@ -28,7 +28,7 @@ const FullOverlay = styled.div<IBigCard>`
     `};
 `
 
-export const BigCard: React.FC<IBigCard> = props => {
+export const BigCard: React.FC<IBigCard> = (props) => {
   const { children, isShown } = props
 
   return <FullOverlay isShown={isShown}>{children}</FullOverlay>

@@ -6,13 +6,13 @@ interface IQrCodeImg {
 }
 
 export const QrCodeImg = styled.img<IQrCodeImg>`
-  ${props =>
+  ${(props) =>
     props.small &&
     css`
       height: 50px;
     `};
 
-  ${props =>
+  ${(props) =>
     props.big &&
     css`
       width: 300px;

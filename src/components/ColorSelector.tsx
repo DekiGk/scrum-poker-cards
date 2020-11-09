@@ -26,7 +26,7 @@ const StyledButton = styled.button<IColorSelector>`
   font-size: 2em;
   border-radius: 10px;
   padding: 0;
-  background: ${props =>
+  background: ${(props) =>
     props.color &&
     css`
       ${props.color};
@@ -35,14 +35,14 @@ const StyledButton = styled.button<IColorSelector>`
   cursor: pointer;
   outline: none;
 
-  ${props =>
+  ${(props) =>
     props.isActive &&
     css`
       border-color: #faf33e;
     `};
 `
 
-export const ColorSelector: React.FC<IColorSelector> = props => {
+export const ColorSelector: React.FC<IColorSelector> = (props) => {
   const { color } = props
 
   return <StyledButton {...props} data-color={color}></StyledButton>

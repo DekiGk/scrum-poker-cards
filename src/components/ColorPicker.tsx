@@ -20,7 +20,7 @@ const StyledButton = styled.button<IColorPicker>`
   font-size: 2em;
   border-radius: 10px;
   padding: 0;
-  background: ${props =>
+  background: ${(props) =>
     props.color &&
     css`
       ${props.color};
@@ -29,7 +29,7 @@ const StyledButton = styled.button<IColorPicker>`
   cursor: pointer;
   outline: none;
 
-  ${props =>
+  ${(props) =>
     props.isActive &&
     css`
       border-color: #faf33e;
@@ -40,7 +40,7 @@ const StyledButton = styled.button<IColorPicker>`
   }
 `
 
-export const ColorPicker: React.FC<IColorPicker> = props => {
+export const ColorPicker: React.FC<IColorPicker> = (props) => {
   const { color, colorPickerChange } = props
 
   return (
