@@ -20,11 +20,30 @@ const StyledApp = styled.div`
   color: #ffffff;
 `
 
+const initialCardValues = new Map([
+  ['0', true],
+  ['0,5', true],
+  ['1', true],
+  ['2', true],
+  ['3', true],
+  ['5', true],
+  ['8', true],
+  ['13', true],
+  ['20', true],
+  ['40', true],
+  ['100', true],
+  ['?', true],
+  ['∞', true],
+  ['☕', true],
+])
+
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(DefaultColors.Green as string)
   const [currentCard, setCurrentCard] = useState('')
   const [showQrCode, setShowQrCode] = useState(false)
   const [isColorPickerActive, setIsColorPickerActive] = useState(false)
+  const [canPickCards, setCanPickCards] = useState(false)
+  const [cards, setCards] = useState(initialCardValues)
 
   const handleColorSelectorClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelectedColor(event.currentTarget.dataset.color || DefaultColors.Green)
@@ -52,6 +71,12 @@ const App: React.FC = () => {
     setShowQrCode(!showQrCode)
   }
 
+  const toggleCardSelection = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const clickedCardValue = event.currentTarget.textContent || ''
+
+    setCards(new Map(cards.set(clickedCardValue, !cards.get(clickedCardValue))))
+  }
+
   return (
     <StyledApp>
       <BigCard isShown={!!currentCard}>
@@ -61,6 +86,7 @@ const App: React.FC = () => {
           onClick={handleBigCardClick}
           isBig={true}
           isShown={!!currentCard}
+          selected={true}
         />
       </BigCard>
 
@@ -75,6 +101,8 @@ const App: React.FC = () => {
           <QrCodeImg big={true} src={qr} alt="" />
         </QrCodeBtn>
       </BigCard>
+
+      <button onClick={() => setCanPickCards(!canPickCards)}>pick cards</button>
 
       <Colors>
         <ColorSelector
@@ -106,20 +134,21 @@ const App: React.FC = () => {
       </Colors>
 
       <Cards>
-        <Card color={selectedColor} number={'0'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'0,5'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'1'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'2'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'3'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'5'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'8'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'13'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'20'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'40'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'100'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'?'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'∞'} onClick={handleCardClick} />
-        <Card color={selectedColor} number={'☕'} onClick={handleCardClick} />
+        {Array.from(cards).map((card) => {
+          // card[0] = cardValue
+          // card[1] = isCardSelected
+
+          return (
+            <Card
+              key={card[0]}
+              color={selectedColor}
+              number={card[0]}
+              onClick={canPickCards ? toggleCardSelection : handleCardClick}
+              selected={card[1]}
+              canPickCards={canPickCards}
+            />
+          )
+        })}
       </Cards>
     </StyledApp>
   )

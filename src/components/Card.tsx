@@ -3,16 +3,20 @@ import styled, { css } from 'styled-components'
 
 interface ICard {
   color: string
+  selected?: boolean
   number: string
   isShown?: boolean
   isBig?: boolean
+  canPickCards?: boolean
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 interface IStyledButton {
   color: string
+  selected?: boolean
   isShown?: boolean
   isBig?: boolean
+  canPickCards?: boolean
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
@@ -26,7 +30,14 @@ const StyledButton = styled.button<IStyledButton>`
   justify-content: center;
   font-weight: bold;
   font-size: 2.7em;
-  display: flex;
+  display: ${(props) => (props.selected ? 'flex' : 'none')};
+  ${(props) =>
+    props.canPickCards &&
+    css`
+      display: flex;
+      opacity: ${props.selected ? '1' : '0.5'};
+    `};
+
   color: #ffffff;
   cursor: pointer;
   outline: none;
@@ -61,10 +72,17 @@ const StyledButton = styled.button<IStyledButton>`
 `
 
 export const Card: React.FC<ICard> = (props) => {
-  const { color, number, onClick, isBig, isShown } = props
+  const { color, number, onClick, isBig, isShown, selected, canPickCards } = props
 
   return (
-    <StyledButton color={color} onClick={onClick} isBig={isBig} isShown={isShown}>
+    <StyledButton
+      color={color}
+      onClick={onClick}
+      isBig={isBig}
+      isShown={isShown}
+      selected={selected}
+      canPickCards={canPickCards}
+    >
       {number}
     </StyledButton>
   )
