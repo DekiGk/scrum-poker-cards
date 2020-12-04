@@ -102,7 +102,7 @@ const App: React.FC = () => {
         </QrCodeBtn>
       </BigCard>
 
-      <button onClick={() => setCanPickCards(!canPickCards)}>pick cards</button>
+      <button onClick={() => setCanPickCards(!canPickCards)}>Edit Card Sequence</button>
 
       <Colors>
         <ColorSelector
