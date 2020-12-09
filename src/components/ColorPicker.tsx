@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import colorPalette from '../img/colorPalette.svg'
 
 interface IColorPicker {
   color: string
@@ -11,6 +12,7 @@ interface IColorPicker {
 const StyledButton = styled.button<IColorPicker>`
   width: 70px;
   height: 70px;
+  visibility: hidden;
   border: 5px solid #ffffff;
   margin: 0 15px 15px 15px;
   display: flex;
@@ -38,6 +40,11 @@ const StyledButton = styled.button<IColorPicker>`
   input {
     display: none;
   }
+
+  img {
+    width: 70px;
+    visibility: visible;
+  }
 `
 
 export const ColorPicker: React.FC<IColorPicker> = (props) => {
@@ -45,6 +52,7 @@ export const ColorPicker: React.FC<IColorPicker> = (props) => {
 
   return (
     <StyledButton {...props} data-color={color}>
+      <img src={colorPalette}/>
       <input type="color" onChange={colorPickerChange} />
     </StyledButton>
   )
