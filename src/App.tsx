@@ -104,8 +104,6 @@ const App: React.FC = () => {
 
       <button onClick={() => setCanPickCards(!canPickCards)}>Edit Card Sequence</button>
 
-      <button>test</button>
-
       <Colors>
         <ColorSelector
           color={DefaultColors.Green}
