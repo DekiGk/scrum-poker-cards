@@ -20,7 +20,7 @@ const StyledApp = styled.div`
   color: #ffffff;
 `
 
-const initialCardValues = new Map([
+const initialCardNumberValues = new Map([
   ['0', true],
   ['0,5', true],
   ['1', true],
@@ -37,13 +37,28 @@ const initialCardValues = new Map([
   ['☕', true],
 ])
 
+const initialCardShirtValues = new Map([
+  ['3XS', true],
+  ['2XS', true],
+  ['XS', true],
+  ['S', true],
+  ['M', true],
+  ['L', true],
+  ['XL', true],
+  ['2XL', true],
+  ['3XL', true],
+  ['?', true],
+  ['∞', true],
+  ['☕', true],
+])
+
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(DefaultColors.Green as string)
   const [currentCard, setCurrentCard] = useState('')
   const [showQrCode, setShowQrCode] = useState(false)
   const [isColorPickerActive, setIsColorPickerActive] = useState(false)
   const [canPickCards, setCanPickCards] = useState(false)
-  const [cards, setCards] = useState(initialCardValues)
+  const [cards, setCards] = useState(initialCardNumberValues)
 
   const handleColorSelectorClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelectedColor(event.currentTarget.dataset.color || DefaultColors.Green)
@@ -77,6 +92,22 @@ const App: React.FC = () => {
     setCards(new Map(cards.set(clickedCardValue, !cards.get(clickedCardValue))))
   }
 
+  const setNumberCards = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    initialCardNumberValues.forEach((value, key) => {
+      initialCardNumberValues.set(key, true)
+    })
+
+    setCards(new Map(initialCardNumberValues))
+  }
+
+  const setTShirtCards = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    initialCardShirtValues.forEach((value, key) => {
+      initialCardShirtValues.set(key, true)
+    })
+
+    setCards(new Map(initialCardShirtValues))
+  }
+
   return (
     <StyledApp>
       <BigCard isShown={!!currentCard}>
@@ -103,6 +134,13 @@ const App: React.FC = () => {
       </BigCard>
 
       <button onClick={() => setCanPickCards(!canPickCards)}>Edit Card Sequence</button>
+
+      <button onClick={setNumberCards} disabled={canPickCards}>
+        Number Cards
+      </button>
+      <button onClick={setTShirtCards} disabled={canPickCards}>
+        T-Shirt Cards
+      </button>
 
       <Colors>
         <ColorSelector

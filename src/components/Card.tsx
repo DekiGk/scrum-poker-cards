@@ -55,7 +55,7 @@ const StyledButton = styled.button<IStyledButton>`
     css`
       width: 300px;
       height: 450px;
-      font-size: 10em;
+      font-size: 9em;
     `};
 
   ${(props) =>
