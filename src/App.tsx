@@ -60,6 +60,8 @@ const App: React.FC = () => {
   const [canPickCards, setCanPickCards] = useState(false)
   const [cards, setCards] = useState(initialCardNumberValues)
 
+  let wakeLock: WakeLockSentinel | null = null
+
   const handleColorSelectorClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelectedColor(event.currentTarget.dataset.color || DefaultColors.Green)
     setIsColorPickerActive(false)
@@ -108,6 +110,28 @@ const App: React.FC = () => {
     setCards(new Map(initialCardShirtValues))
   }
 
+  const toggleWakeLock = async (): Promise<undefined | void> => {
+    if ('wakeLock' in navigator) {
+      if (wakeLock) {
+        wakeLock.release()
+        console.log('Screen lock released.')
+        return
+      }
+
+      try {
+        wakeLock = await navigator.wakeLock.request('screen')
+        console.log('Screen lock obtained.')
+
+        wakeLock.addEventListener('release', () => {
+          wakeLock = null
+        })
+      } catch (error) {
+        // Wake lock was not allowed.
+        alert(error)
+      }
+    }
+  }
+
   return (
     <StyledApp>
       <BigCard isShown={!!currentCard}>
@@ -140,6 +164,9 @@ const App: React.FC = () => {
       </button>
       <button onClick={setTShirtCards} disabled={canPickCards}>
         T-Shirt Cards
+      </button>
+      <button onClick={toggleWakeLock} disabled={canPickCards}>
+        Toggle Wake Lock
       </button>
 
       <Colors>
