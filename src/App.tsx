@@ -249,7 +249,6 @@ const App: React.FC = () => {
 
       <Cards>
         {Array.from(cards).map((card: [string, boolean]) => {
-          console.log(card)
           // card[0] = cardValue
           // card[1] = isCardSelected
 
