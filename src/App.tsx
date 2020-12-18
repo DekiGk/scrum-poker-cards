@@ -21,20 +21,20 @@ const StyledApp = styled.div`
 `
 
 const initialCardNumberValues = new Map([
-  ['0', true],
-  ['0,5', true],
-  ['1', true],
-  ['2', true],
-  ['3', true],
-  ['5', true],
-  ['8', true],
-  ['13', true],
-  ['20', true],
-  ['40', true],
-  ['100', true],
-  ['?', true],
-  ['∞', true],
-  ['☕', true],
+  [' 0 ', true],
+  [' 0,5 ', true],
+  [' 1 ', true],
+  [' 2 ', true],
+  [' 3 ', true],
+  [' 5 ', true],
+  [' 8 ', true],
+  [' 13 ', true],
+  [' 20 ', true],
+  [' 40 ', true],
+  [' 100 ', true],
+  [' ? ', true],
+  [' ∞ ', true],
+  [' ☕ ', true],
 ])
 
 const initialCardShirtValues = new Map([
