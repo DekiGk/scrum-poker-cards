@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import './App.css'
 import { ColorSelector, DefaultColors } from './components/ColorSelector'
 import { Card } from './components/Card'
@@ -52,13 +52,62 @@ const initialCardShirtValues = new Map([
   ['☕', true],
 ])
 
+function useStickyState(defaultValue: any, key: string): [string, Dispatch<any>] {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key)
+
+    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue
+  })
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
+
+  return [value, setValue]
+}
+
+function useStickyStateForMap(
+  defaultValue: any,
+  key: string
+): [Map<string, boolean>, Dispatch<any>] {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key)
+
+    return stickyValue !== null ? objToStrMap(JSON.parse(stickyValue)) : defaultValue
+  })
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(strMapToObj(value)))
+  }, [key, value])
+
+  return [value, setValue]
+}
+
+function strMapToObj(strMap: [string, boolean][]) {
+  let obj = Object.create(null)
+  for (let [k, v] of strMap) {
+    obj[k] = v
+  }
+  return obj
+}
+function objToStrMap(obj: any) {
+  let strMap = new Map()
+  for (let k of Object.keys(obj)) {
+    strMap.set(k, obj[k])
+  }
+  return strMap
+}
+
 const App: React.FC = () => {
-  const [selectedColor, setSelectedColor] = useState(DefaultColors.Green as string)
+  const [selectedColor, setSelectedColor] = useStickyState(
+    DefaultColors.Green as string,
+    'selectedColor'
+  )
   const [currentCard, setCurrentCard] = useState('')
   const [showQrCode, setShowQrCode] = useState(false)
   const [isColorPickerActive, setIsColorPickerActive] = useState(false)
   const [canPickCards, setCanPickCards] = useState(false)
-  const [cards, setCards] = useState(initialCardNumberValues)
+  const [cards, setCards] = useStickyStateForMap(initialCardNumberValues, 'cards')
 
   let wakeLock: WakeLockSentinel | null = null
 
@@ -199,7 +248,8 @@ const App: React.FC = () => {
       </Colors>
 
       <Cards>
-        {Array.from(cards).map((card) => {
+        {Array.from(cards).map((card: [string, boolean]) => {
+          console.log(card)
           // card[0] = cardValue
           // card[1] = isCardSelected
 
