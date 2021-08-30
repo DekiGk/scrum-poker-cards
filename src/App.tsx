@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react'
+import React, { Dispatch, useRef, useState } from 'react'
 import './App.css'
 import { ColorSelector, DefaultColors } from './components/ColorSelector'
 import { Card } from './components/Card'
@@ -107,8 +107,9 @@ const App: React.FC = () => {
   const [isColorPickerActive, setIsColorPickerActive] = useState(false)
   const [canPickCards, setCanPickCards] = useState(false)
   const [cards, setCards] = useStickyStateForMap(initialCardNumberValues, 'cards')
+  const [isWakeLockOn, setIsWakeLockOn] = useState(false)
 
-  let wakeLock: WakeLockSentinel | null = null
+  const wakeLock = useRef<WakeLockSentinel | null>(null)
 
   const handleColorSelectorClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelectedColor(event.currentTarget.dataset.color || DefaultColors.Green)
@@ -160,22 +161,25 @@ const App: React.FC = () => {
 
   const toggleWakeLock = async (): Promise<undefined | void> => {
     if ('wakeLock' in navigator) {
-      if (wakeLock) {
-        wakeLock.release()
+      if (wakeLock.current && isWakeLockOn) {
+        wakeLock?.current?.release()
         console.log('Screen lock released.')
         return
       }
 
       try {
-        wakeLock = await navigator.wakeLock.request('screen')
+        wakeLock.current = await navigator.wakeLock.request('screen')
         console.log('Screen lock obtained.')
+        setIsWakeLockOn(true)
 
-        wakeLock.addEventListener('release', () => {
-          wakeLock = null
+        wakeLock.current.addEventListener('release', () => {
+          wakeLock.current = null
+          setIsWakeLockOn(false)
         })
       } catch (error) {
         // Wake lock was not allowed.
         alert(error)
+        setIsWakeLockOn(false)
       }
     }
   }
@@ -205,7 +209,9 @@ const App: React.FC = () => {
         </QrCodeBtn>
       </BigCard>
 
-      <button onClick={() => setCanPickCards(!canPickCards)}>Edit Card Sequence</button>
+      <button onClick={() => setCanPickCards(!canPickCards)}>
+        {canPickCards ? 'Save Card Sequence' : 'Edit Card Sequence'}
+      </button>
 
       <button onClick={setNumberCards} disabled={canPickCards}>
         Number Cards
@@ -214,7 +220,7 @@ const App: React.FC = () => {
         T-Shirt Cards
       </button>
       <button onClick={toggleWakeLock} disabled={canPickCards}>
-        Toggle Wake Lock
+        Turn {isWakeLockOn ? 'off' : 'on'} Wake Lock
       </button>
 
       <Colors>
