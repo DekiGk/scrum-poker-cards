@@ -6,11 +6,10 @@ import { BigCard } from './components/BigCard'
 import styled from 'styled-components'
 import { QrCode } from './components/QrCode'
 import { QrCodeBtn } from './components/QrCodeBtn'
-import { QrCodeImg } from './components/QrCodeImg'
 import { Colors } from './components/Colors'
 import { Cards } from './components/Cards'
 import { ColorPicker } from './components/ColorPicker'
-import qr from './img/qr.svg'
+import QRCode from 'react-qr-code'
 
 const StyledApp = styled.div`
   text-align: center;
@@ -196,13 +195,13 @@ const App: React.FC = () => {
 
       <QrCode>
         <QrCodeBtn onClick={toggleShowQrCode}>
-          <QrCodeImg small={true} src={qr} alt="" />
+          <QRCode value="https://scrum-poker-cards.kodeskills.com/" size={40} />
         </QrCodeBtn>
       </QrCode>
 
       <BigCard isShown={showQrCode}>
-        <QrCodeBtn onClick={toggleShowQrCode}>
-          <QrCodeImg big={true} src={qr} alt="" />
+        <QrCodeBtn onClick={toggleShowQrCode} big>
+          <QRCode value="https://scrum-poker-cards.kodeskills.com/" size={270} />
         </QrCodeBtn>
       </BigCard>
 
