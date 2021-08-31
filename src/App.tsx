@@ -3,53 +3,14 @@ import './App.css'
 import { ColorSelector, DefaultColors } from './components/ColorSelector'
 import { Card } from './components/Card'
 import { BigCard } from './components/BigCard'
-import styled from 'styled-components'
 import { QrCode } from './components/QrCode'
 import { QrCodeBtn } from './components/QrCodeBtn'
 import { Colors } from './components/Colors'
 import { Cards } from './components/Cards'
 import { ColorPicker } from './components/ColorPicker'
 import QRCode from 'react-qr-code'
-
-const StyledApp = styled.div`
-  text-align: center;
-  min-height: 100vh;
-  width: 100%;
-  background: #4281a4;
-  color: #ffffff;
-`
-
-const initialCardNumberValues = new Map([
-  [' 0 ', true],
-  [' 0,5 ', true],
-  [' 1 ', true],
-  [' 2 ', true],
-  [' 3 ', true],
-  [' 5 ', true],
-  [' 8 ', true],
-  [' 13 ', true],
-  [' 20 ', true],
-  [' 40 ', true],
-  [' 100 ', true],
-  [' ? ', true],
-  [' ∞ ', true],
-  [' ☕ ', true],
-])
-
-const initialCardShirtValues = new Map([
-  ['3XS', true],
-  ['2XS', true],
-  ['XS', true],
-  ['S', true],
-  ['M', true],
-  ['L', true],
-  ['XL', true],
-  ['2XL', true],
-  ['3XL', true],
-  ['?', true],
-  ['∞', true],
-  ['☕', true],
-])
+import { StyledApp } from './styledComponents/StyledApp'
+import { initialCardNumberValues, initialCardShirtValues } from './constants/cardConstants'
 
 function useStickyState(defaultValue: any, key: string): [string, Dispatch<any>] {
   const [value, setValue] = React.useState(() => {

@@ -1,0 +1,31 @@
+export const initialCardNumberValues = new Map([
+  [' 0 ', true],
+  [' 0,5 ', true],
+  [' 1 ', true],
+  [' 2 ', true],
+  [' 3 ', true],
+  [' 5 ', true],
+  [' 8 ', true],
+  [' 13 ', true],
+  [' 20 ', true],
+  [' 40 ', true],
+  [' 100 ', true],
+  [' ? ', true],
+  [' ∞ ', true],
+  [' ☕ ', true],
+])
+
+export const initialCardShirtValues = new Map([
+  ['3XS', true],
+  ['2XS', true],
+  ['XS', true],
+  ['S', true],
+  ['M', true],
+  ['L', true],
+  ['XL', true],
+  ['2XL', true],
+  ['3XL', true],
+  ['?', true],
+  ['∞', true],
+  ['☕', true],
+])
