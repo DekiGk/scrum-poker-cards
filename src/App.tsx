@@ -1,4 +1,4 @@
-import React, { Dispatch, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './App.css'
 import { ColorSelector, DefaultColors } from './components/ColorSelector'
 import { Card } from './components/Card'
@@ -11,52 +11,7 @@ import { ColorPicker } from './components/ColorPicker'
 import QRCode from 'react-qr-code'
 import { StyledApp } from './styledComponents/StyledApp'
 import { initialCardNumberValues, initialCardShirtValues } from './constants/cardConstants'
-
-function useStickyState(defaultValue: any, key: string): [string, Dispatch<any>] {
-  const [value, setValue] = React.useState(() => {
-    const stickyValue = window.localStorage.getItem(key)
-
-    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue
-  })
-
-  React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value))
-  }, [key, value])
-
-  return [value, setValue]
-}
-
-function useStickyStateForMap(
-  defaultValue: any,
-  key: string
-): [Map<string, boolean>, Dispatch<any>] {
-  const [value, setValue] = React.useState(() => {
-    const stickyValue = window.localStorage.getItem(key)
-
-    return stickyValue !== null ? objToStrMap(JSON.parse(stickyValue)) : defaultValue
-  })
-
-  React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(strMapToObj(value)))
-  }, [key, value])
-
-  return [value, setValue]
-}
-
-function strMapToObj(strMap: [string, boolean][]) {
-  let obj = Object.create(null)
-  for (let [k, v] of strMap) {
-    obj[k] = v
-  }
-  return obj
-}
-function objToStrMap(obj: any) {
-  let strMap = new Map()
-  for (let k of Object.keys(obj)) {
-    strMap.set(k, obj[k])
-  }
-  return strMap
-}
+import { useStickyState, useStickyStateForMap } from './utils/utils'
 
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useStickyState(
@@ -158,60 +113,62 @@ const App: React.FC = () => {
         />
       </BigCard>
 
-      <QrCode>
-        <QrCodeBtn onClick={toggleShowQrCode}>
-          <QRCode value="https://scrum-poker-cards.kodeskills.com/" size={40} />
-        </QrCodeBtn>
-      </QrCode>
-
       <BigCard isShown={showQrCode}>
         <QrCodeBtn onClick={toggleShowQrCode} big>
           <QRCode value="https://scrum-poker-cards.kodeskills.com/" size={270} />
         </QrCodeBtn>
       </BigCard>
 
-      <button onClick={() => setCanPickCards(!canPickCards)}>
-        {canPickCards ? 'Save Card Sequence' : 'Edit Card Sequence'}
-      </button>
+      <header>
+        <QrCode>
+          <QrCodeBtn onClick={toggleShowQrCode}>
+            <QRCode value="https://scrum-poker-cards.kodeskills.com/" size={40} />
+          </QrCodeBtn>
+        </QrCode>
 
-      <button onClick={setNumberCards} disabled={canPickCards}>
-        Number Cards
-      </button>
-      <button onClick={setTShirtCards} disabled={canPickCards}>
-        T-Shirt Cards
-      </button>
-      <button onClick={toggleWakeLock} disabled={canPickCards}>
-        Turn {isWakeLockOn ? 'off' : 'on'} Wake Lock
-      </button>
+        <button onClick={() => setCanPickCards(!canPickCards)}>
+          {canPickCards ? 'Save Card Sequence' : 'Edit Card Sequence'}
+        </button>
 
-      <Colors>
-        <ColorSelector
-          color={DefaultColors.Green}
-          isActive={selectedColor === DefaultColors.Green}
-          onClick={handleColorSelectorClick}
-        />
-        <ColorSelector
-          color={DefaultColors.Red}
-          isActive={selectedColor === DefaultColors.Red}
-          onClick={handleColorSelectorClick}
-        />
-        <ColorSelector
-          color={DefaultColors.Blue}
-          isActive={selectedColor === DefaultColors.Blue}
-          onClick={handleColorSelectorClick}
-        />
-        <ColorSelector
-          color={DefaultColors.Orange}
-          isActive={selectedColor === DefaultColors.Orange}
-          onClick={handleColorSelectorClick}
-        />
-        <ColorPicker
-          onClick={handleColorPickerClick}
-          color={selectedColor}
-          isActive={isColorPickerActive}
-          colorPickerChange={handleColorPickerChange}
-        />
-      </Colors>
+        <button onClick={setNumberCards} disabled={canPickCards}>
+          Number Cards
+        </button>
+        <button onClick={setTShirtCards} disabled={canPickCards}>
+          T-Shirt Cards
+        </button>
+        <button onClick={toggleWakeLock} disabled={canPickCards}>
+          Turn {isWakeLockOn ? 'off' : 'on'} Wake Lock
+        </button>
+
+        <Colors>
+          <ColorSelector
+            color={DefaultColors.Green}
+            isActive={selectedColor === DefaultColors.Green}
+            onClick={handleColorSelectorClick}
+          />
+          <ColorSelector
+            color={DefaultColors.Red}
+            isActive={selectedColor === DefaultColors.Red}
+            onClick={handleColorSelectorClick}
+          />
+          <ColorSelector
+            color={DefaultColors.Blue}
+            isActive={selectedColor === DefaultColors.Blue}
+            onClick={handleColorSelectorClick}
+          />
+          <ColorSelector
+            color={DefaultColors.Orange}
+            isActive={selectedColor === DefaultColors.Orange}
+            onClick={handleColorSelectorClick}
+          />
+          <ColorPicker
+            onClick={handleColorPickerClick}
+            color={selectedColor}
+            isActive={isColorPickerActive}
+            colorPickerChange={handleColorPickerChange}
+          />
+        </Colors>
+      </header>
 
       <Cards>
         {Array.from(cards).map((card: [string, boolean]) => {
