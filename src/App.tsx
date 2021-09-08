@@ -128,7 +128,7 @@ const App: React.FC = () => {
         </QrCode>
 
         <button onClick={() => setCanPickCards(!canPickCards)}>
-          {canPickCards ? 'Save Card Sequence' : 'Edit Card Sequence'}
+          {canPickCards ? 'Save' : 'Edit'} Card Sequence
         </button>
 
         <button onClick={setNumberCards} disabled={canPickCards}>
