@@ -1,17 +1,18 @@
 import React, { useRef, useState } from 'react'
 import './App.css'
-import { ColorSelector, DefaultColors } from './components/ColorSelector'
+import { ColorSelector } from './components/ColorSelector'
 import { Card } from './components/Card'
 import { BigCard } from './components/BigCard'
-import { QrCode } from './components/QrCode'
-import { QrCodeBtn } from './components/QrCodeBtn'
-import { Colors } from './components/Colors'
-import { Cards } from './components/Cards'
+import { QrCode } from './styledComponents/QrCode'
+import { QrCodeBtn } from './styledComponents/QrCodeBtn'
+import { Colors } from './styledComponents/Colors'
+import { Cards } from './styledComponents/Cards'
 import { ColorPicker } from './components/ColorPicker'
 import QRCode from 'react-qr-code'
 import { StyledApp } from './styledComponents/StyledApp'
 import { initialCardNumberValues, initialCardShirtValues } from './constants/cardConstants'
 import { useStickyState, useStickyStateForMap } from './utils/utils'
+import { DefaultColors } from './enums/DefaultColors'
 
 const App: React.FC = () => {
   const [selectedColor, setSelectedColor] = useStickyState(
