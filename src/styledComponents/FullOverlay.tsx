@@ -1,7 +1,9 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
 
 export interface IFullOverlay {
   isShown: boolean
+  children: React.ReactNode
 }
 
 export const FullOverlay = styled.div<IFullOverlay>`
